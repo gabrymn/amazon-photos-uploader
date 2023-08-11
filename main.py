@@ -7,11 +7,15 @@ import pyautogui
 
 class AutomUPL:
 
-    def __init__(self, email, psw):
+    def __init__(self, email, psw, path):
+        
         self.email = email
         self.psw = psw
-        self.AMZN_PH_LOGIN_LINK = "https://www.amazon.it/photos?sf=1/ref=s9_acss_bw_h1_EEEESSS_bn_w?ref_=BN_ES_C_U_E_M_CD_CG_417_ADAPSI&pf_rd_m=A1AT7YVPFBWXBL&pf_rd_s=merchandised-search-1&pf_rd_r=CKMHBDSC7YCPSMXR24KE&pf_rd_t=101&pf_rd_p=d284dade-6826-459b-9042-bf7f3d7341d1&pf_rd_i=12364776031"
+        self.path = path
         self.cdriver = AutomUPL.__get_chrome_driver()
+
+        # Const
+        self.LOGIN_LINK = "https://www.amazon.it/photos?sf=1/ref=s9_acss_bw_h1_EEEESSS_bn_w?ref_=BN_ES_C_U_E_M_CD_CG_417_ADAPSI&pf_rd_m=A1AT7YVPFBWXBL&pf_rd_s=merchandised-search-1&pf_rd_r=CKMHBDSC7YCPSMXR24KE&pf_rd_t=101&pf_rd_p=d284dade-6826-459b-9042-bf7f3d7341d1&pf_rd_i=12364776031"
 
     def __login(self):
         name_field = self.cdriver.find_element(By.ID, "ap_email")
@@ -27,13 +31,11 @@ class AutomUPL:
         self.cdriver.find_element(By.CLASS_NAME, "toggle").click()
         self.cdriver.find_element(By.XPATH, "/html/body/div[1]/div/header/section/div[2]/nav/ul/li[1]/button").click()
         t.sleep(1)
-        pyautogui.write(r'***') 
+        pyautogui.write(self.path) 
         pyautogui.press('enter')
 
-    def __open_chrome(self, link = False):
-        if (link == False):
-            link = self.AMZN_PH_LOGIN_LINK
-        self.cdriver.get(link)
+    def __open_chrome(self):
+        self.cdriver.get(self.LOGIN_LINK)
 
     def __get_chrome_driver():
         
@@ -65,8 +67,9 @@ def main():
 
     EMAIL = "***"
     PSW = "***"
+    PATH = "***"
 
-    obj = AutomUPL(EMAIL, PSW)
+    obj = AutomUPL(EMAIL, PSW, PATH)
     obj.exec()
 
     t.sleep(100)
