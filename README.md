@@ -1,1 +1,1 @@
-# autom_uploader
+Auto uploader of images to Amazon-photos web app
